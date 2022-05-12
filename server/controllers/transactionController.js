@@ -6,7 +6,6 @@ const clientDB = {
 };
 
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
 const transaction = async (req, res) => {
   const cookies = req.cookies;

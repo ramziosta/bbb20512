@@ -45,5 +45,14 @@
     "accountType": "checking",
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pc3R5QG11c3R5LmNvbSIsImlhdCI6MTY1MjM4MjgzMywiZXhwIjoxNjUyNDY5MjMzfQ.RWmbAiMHYYi05-PFN2xyzU1bJfdQXcABwNvuLTbppCc",
     "roles": { "Editor": 3099, "User": 2022 }
+  },
+  {
+    "user": "mongoman",
+    "email": "mongo@man.com",
+    "pwd": "$2b$10$nI7rY8ZawNYS.ewMI6XLIepOtm37Zo.ldby9qBv.AnCwGG/riXqhC",
+    "accountType": "Checking",
+    "balance": 0,
+    "transactions": [],
+    "roles": { "User": 2001 }
   }
 ]
