@@ -1,0 +1,55 @@
+[
+  {
+    "user": "billybob",
+    "email": "billyboob.com",
+    "password": "$2b$10$sppQIhsVpZAHtEs4wj59oetEGj.YxJCUmn9ttaLruajfKTAiBksGi",
+    "accountType": "savings"
+  },
+  {
+    "user": "AndyHandy",
+    "email": "handyandy.com",
+    "password": "$2b$10$YLxJv4gW2Hi7VyA7fLnmC.3AFEzdA/pPY0xAW9Li6UXlgIpbOXY0K",
+    "accountType": "savings"
+  },
+  {
+    "user": "mistymusty",
+    "email": "wetwetwet.com",
+    "password": "$2b$10$cdTMTtObHWmq7FMA/2y/iuuwO42sViEqAY2/ZBZWOfbHWTBfmzE8K",
+    "accountType": "checking",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndldHdldHdldC5jb20iLCJpYXQiOjE2NTE5ODY1MDAsImV4cCI6MTY1MjA3MjkwMH0.OiI796qO15ld60bqrshV-8LeZAtaiDSTVVyLwOQOoSY"
+  },
+  {
+    "user": "suziecuew",
+    "email": "suzie@cew.com",
+    "pwd": "$2b$10$iWVmy2vHgZrMXNHeDc7pQuOtUBfuuB8R2vyeal84FudwYvYEsOHQO",
+    "accountType": "Checking"
+  },
+  {
+    "user": "spiceycaliente",
+    "email": "spicey@caliente.com",
+    "pwd": "$2b$10$MiNFG1jPz3uoo/op/4xAGOF2p.x9TROlIZNPxZVRIiWdUvYPi75xO",
+    "accountType": "savings",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNwaWNleUBjYWxpZW50ZS5jb20iLCJpYXQiOjE2NTIzNjQ5MDcsImV4cCI6MTY1MjQ1MTMwN30.QtzCeHW8x_4RPish8NVGV__sxOFGDsSnMo8FKjyMOQ8"
+  },
+  {
+    "user": "leonardo",
+    "email": "leonardo@lucy.com",
+    "pwd": "$2b$10$2hr5I0CCR2n1v7B69ybOle.E4uF1Dq32O3ygo.POfa3hyHMMCKASu",
+    "accountType": "Checking"
+  },
+  {
+    "user": "puertorico",
+    "email": "puertorico@rico.com",
+    "pwd": "$2b$10$LDr1YlftPUzA5RBiNnFSTOdWyhc5dhPk.1soKBofCaPQoIGjMznfi",
+    "accountType": "savings",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InB1ZXJ0b3JpY29Acmljby5jb20iLCJpYXQiOjE2NTIzNjc3MjAsImV4cCI6MTY1MjQ1NDEyMH0.8-jx_4BRmfi8HZp_yBDQhBbLP8cjBU68bfx5BSI1zIc"
+  },
+  {
+    "user": "bustyboobs",
+    "email": "busty@boobs.com",
+    "pwd": "$2b$10$2Q96zsgiXluJWxgx7DQNQufDgOeHwWL1G2dGSfjUJ7WmaF6GgJJgO",
+    "accountType": "Checking",
+    "balance": 0
+  }
+]
+ 
