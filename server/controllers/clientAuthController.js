@@ -23,9 +23,17 @@ const handleLogin = async (req, res) => {
   const match = await bcrypt.compare(pwd, foundClient.pwd);
 
   if (match) {
+    // verify roles
+    const roles = Object.values(foundClient.roles);
+
     // create JWTs and refresh token
     const accessToken = jwt.sign(
-      { email: foundClient.email },
+      {
+        UserInfo: {
+          email: foundClient.email,
+          roles: roles,
+        },
+      },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "300s" }
     );
@@ -45,7 +53,12 @@ const handleLogin = async (req, res) => {
       JSON.stringify(clientDB.clients)
     );
 
-    res.cookie("jwt", refreshToken, { httpOnly: true, maxAge: 24 * 60 * 1000 });
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
     res.json({ accessToken });
     //for frontend to be saved in memory not local storage
   } else {

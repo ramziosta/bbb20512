@@ -10,7 +10,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 
 const handleNewClient = async (req, res) => {
-  const { user, email, pwd, accountType, balance, tranactions } = req.body;
+  const { user, email, pwd, accountType, balance, transactions } = req.body;
   if (!email || !pwd)
     return res
       .status(400)
@@ -21,7 +21,17 @@ const handleNewClient = async (req, res) => {
 
   try {
     const hashedPwd = await bcrypt.hash(pwd, 10);
-    const newClient = { user: user, email: email, pwd: hashedPwd , accountType: accountType, balance: balance};
+    const newClient = { user: user, 
+      email: email, 
+      pwd: hashedPwd , 
+      accountType: accountType, 
+      balance: balance, 
+      transactions: transactions,
+      roles:{
+        "User":2001
+      }
+    };
+
     clientDB.setClients([...clientDB.clients, newClient]);
     await fsPromises.writeFile(
       path.join(__dirname, "..", "data", "clients.json"),

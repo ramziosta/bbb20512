@@ -35,15 +35,19 @@ const updateClient = (req, res) => {
   if (!client) {
     return res
       .status(400)
-      .json({ message: `Client email ${req.body.email} not found` });
+      .json({ message: `Client email ${req.body.user} not found` });
   }
-  if (req.body.name) client.name = req.body.name;
+  if (req.body.user) client.user = req.body.user;
   if (req.body.email) client.email = req.body.email;
+  if (req.body.pwd) client.user = req.body.pwd;
+  if (req.body.accountType) client.user = req.body.accountType;
+  if (req.body.balance) client.email = req.body.balance;
+  if (req.body.transactions) client.email = req.body.transactions;
   const filteredArray = data.clients.filter(
     (Clnt) => Clnt.email !== req.body.email
   );
-  // const unsortedArray = [...filteredArray, client];
-  // data.setClients(unsortedArray.sort((a, b) => a.email > b.email ? 1 : a.email < b.email ? -1 : 0));
+  const unsortedArray = [...filteredArray, client];
+   data.setClients(unsortedArray.sort((a, b) => a.email > b.email ? 1 : a.email < b.email ? -1 : 0));
   res.json(data.clients);
 };
 

@@ -14,10 +14,13 @@ const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 const verifyJWT = require('./middleware/verifyJWT');
 const cookieParser = require('cookie-parser');
-// const credentials = require('./middleware/credentials');
+const credentials = require('./middleware/credentials');
 //const connectDB = require('./config/dbConn');
-
-app.use(cors());
+// Handle options credentials check - before CORS!
+// and fetch cookies credentials requirement
+app.use(credentials);
+// Cross Origin Resource Sharing
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,16 +44,18 @@ mongoose.connection.on("connected", () => {
 app.use(express.static(path.join(__dirname, "../Badbank/build")));
 app.use('/', express.static(path.join(__dirname, '/public')));
 
+app.use("/", routes);
 app.use('/', require('./routes/root'));
 app.use('/createaccount', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
 app.use('/transaction', require('./routes/transaction'));
 app.use('/logout', require('./routes/logout'));
-//any rout to verify must be after this line
+// the above routs dont need verification with JWT token
+// any route to verify must be after this line
 app.use(verifyJWT);
 app.use('/clients', require('./routes/api/clients'))
-app.use("/", routes);
+
 
 //routes 
 

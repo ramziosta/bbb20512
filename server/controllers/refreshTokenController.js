@@ -19,11 +19,19 @@ const handleRefreshToken = (req, res) => {
   );
   if (!foundClient) return res.sendStatus(403); //Forbidden
   console.log(foundClient);
+
   //evaluate jwt token
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
     if (err || foundClient.email !== decoded.email) return res.sendStatus(403);
+    // verify roles
+    const roles = Object.values(foundClient.roles);
     const accessToken = jwt.sign(
-      { email: decoded.email },
+      {
+        UserInfo: {
+          email: foundClient.email,
+          roles: roles,
+        },
+      },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "300s" }
     );
