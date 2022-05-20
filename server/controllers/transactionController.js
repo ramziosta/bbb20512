@@ -5,15 +5,12 @@ const handleNewTransaction = async (req, res) => {
   const { amount, balance, transactionDate, transactionType, } = req.body;
 
   try {
-    const newTransaction = await User.create({
-      transactions: [
-        {
+    const newTransaction = await Transaction.create({
+          email: req.user.email,
           amount: amount,
           balance: balance,
           transactionDate: transactionDate,
           transactionType: transactionType,
-        },
-      ],
     });
 
     console.log(newTransaction);
@@ -35,7 +32,7 @@ const getAllTransactions = async (req, res) => {
 const getUserTransaction = async (req, res) => {
   if (!req?.params?.email)
     return res.status(400).json({ message: "User Email required" });
-  const userTransaction = await Transaction.findOne({
+  const userTransaction = await Transaction.find({
     email: req.params.email,
   }).exec();
   if (!userTransaction) {

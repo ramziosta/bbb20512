@@ -5,7 +5,7 @@ import axios from "../api/axios";
 import DataContext from "../context/DataProvider";
 import UserContext from "../context/UserProvider";
 
-const ACCTRANSACTION_URL = "/acctransactions";
+const ACCTRANSACTION_URL = "/transactions";
 const timeStamp = new Date().toLocaleDateString();
 
 function Withdraw() {
@@ -60,6 +60,7 @@ function Withdraw() {
         JSON.stringify({
           transactions: [
             {
+              email: email,
               amount: amount,
               balance: balance,
               transactionDate: transactionDate,
