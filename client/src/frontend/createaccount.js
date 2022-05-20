@@ -16,6 +16,7 @@ import {
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import "../styles/SignIn.css";
 import axios from "../api/axios";
+
 const REGISTER_URL = "/register";
 const timeStamp = new Date().toLocaleDateString();
 
@@ -195,7 +196,7 @@ function CreateAccount() {
                   </p>
                 </section>
               ) : (
-                <main>
+                <div>
                   <div style={{ background: "grey", height: "89vh" }}>
                     <Card
                       body={
@@ -425,7 +426,7 @@ function CreateAccount() {
                       }
                     />
                   </div>
-                </main>
+                </div>
               )}
             </div>
           </div>

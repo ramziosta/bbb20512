@@ -1,36 +1,25 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
+import DataContext from "../context/DataProvider";
+import UserContext from "../context/UserProvider";
 import Card from "../context/context";
 import "../styles/Home.css";
 
 const Home = () => {
+  const { accountData, setAccountData } = useContext(DataContext);
+  const { userData, setUserData } = useContext(UserContext);
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const logout = async () => {
-    // if used in more components, this should be in context
-    // axios to /logout endpoint
-    setAuth();
-    navigate("/");
-  };
-
   return (
     <>
-      {/* <div >
-      <h1>Home</h1>
-      <br />
-      <Link to="/editor" style={{color:"black"}}>Account Editor</Link>
-      <br />
-      <Link to="/admin" style={{color:"black"}}>Bank Admin</Link>
-      <br />
-      <Link to="/linkpage" style={{color:"black"}}>Site Directory</Link>
-      </div> */}
-      <div className="">
-        <button onClick={logout}>Sign Out</button>
-      </div>
       <div>
-        <Link to="/login" className="fa fa-user"></Link>
+        <Link
+          to="/login"
+          className="fa fa-user"
+          style={{ color: "#0079d5" }}
+        ></Link>
         {/* <!-- Full Page Intro --> */}
         <div
           className="view"

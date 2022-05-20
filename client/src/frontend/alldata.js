@@ -1,4 +1,4 @@
-import  {useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "../api/axios";
@@ -10,88 +10,83 @@ const DATA_URL = "/users";
 
 export default function AllData() {
   const axiosPrivate = useAxiosPrivate();
-
   const [users, setUsers] = useState([]);
 
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
 
-    
-    useEffect(() => {
-      let isMounted = true;
-      const controller = new AbortController();
-  
-      const getAllUsers = async () => {
-        try {
-          const response = await axiosPrivate.get(DATA_URL, {
-            signal: controller.signal,
-          });
-          console.log(response.data);
-          isMounted && setUsers(response.data);
-        } catch (err) {
-          console.error(err);
-          // navigate("/login", { state: { from: location }, replace: true });
-        }
-      };
-  
-      getAllUsers();
-  
-      return () => {
-        isMounted = false;
-        controller.abort();
-      };
-    }, []);
-  
-    
-    let usersList = users.map((user, index) => {
-      return (
-        <tr key={index}>
-          <td className="fs-6 text-wrap">{user.user}</td>
-          <td className="fs-6 text-wrap" >{user.email}</td>
-          <td className="fs-6 text-wrap">{user.accountType}</td>
-          <td className="fs-6 text-wrap">{user.accountNumber}</td>
-        </tr>
-      );
-    });
-  
+    const getAllUsers = async () => {
+      try {
+        const response = await axiosPrivate.get(DATA_URL, {
+          signal: controller.signal,
+        });
+        console.log(response.data);
+        isMounted && setUsers(response.data);
+      } catch (err) {
+        console.error(err);
+        // navigate("/login", { state: { from: location }, replace: true });
+      }
+    };
+
+    getAllUsers();
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, []);
+
+  let usersList = users.map((user, index) => {
     return (
-      <>
-         <SiteSideBar />
-      
+      <tr key={index}>
+        <td className="fs-6 text-wrap">{user.user}</td>
+        <td className="fs-6 text-wrap">{user.email}</td>
+        <td className="fs-6 text-wrap">{user.accountType}</td>
+        <td className="fs-6 text-wrap">{user.accountNumber}</td>
+      </tr>
+    );
+  });
+
+  return (
+    <>
+      <SiteSideBar />
+
       <div className="content">
-      <h4
-        className="header"
-        style={{
-          fontSize: "1.3rem",
-          color: "white",
-          padding: ".4rem",
-          border: "solid black 1px",
-          backgroundColor: "#0079d5",
-          width: "100%",
-        }}
-      >
-        BadBank Clients
-      </h4>
-      <h4
-        className="header"
-        style={{
-          fontSize: "1.3rem",
-          color: "white",
-          padding: ".4rem",
-          border: "solid black 1px",
-          backgroundColor: "grey",
-          width: "100%",
-        }}
-      >
-        Current Registered Users:
-      </h4>
+        <h4
+          className="header"
+          style={{
+            fontSize: "1.3rem",
+            color: "white",
+            padding: ".4rem",
+            border: "solid black 1px",
+            backgroundColor: "#0079d5",
+            width: "100%",
+          }}
+        >
+          BadBank Clients
+        </h4>
+        <h4
+          className="header"
+          style={{
+            fontSize: "1.3rem",
+            color: "white",
+            padding: ".4rem",
+            border: "solid black 1px",
+            backgroundColor: "grey",
+            width: "100%",
+          }}
+        >
+          Current Registered Users:
+        </h4>
         <Card
           className=""
-    
           body={
             <table className="table">
               <thead>
                 <tr>
                   <th className="fs-6" scope="col">
-                   User Name
+                    User Name
                   </th>
                   <th className="fs-6" scope="col">
                     Email
@@ -100,7 +95,7 @@ export default function AllData() {
                     Account Type
                   </th>
                   <th className="fs-6" scope="col">
-                    Balance
+                    Account
                   </th>
                 </tr>
               </thead>
@@ -108,7 +103,7 @@ export default function AllData() {
             </table>
           }
         />
-        </div>
-      </>
-    );
-  };
+      </div>
+    </>
+  );
+}

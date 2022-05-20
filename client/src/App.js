@@ -11,7 +11,6 @@ import Layout from "./components/Layout";
 import Login from "./components/Login";
 import Management from "./components/Management";
 import Four04 from "./components/404";
-//import Register from "./components/Register";
 import RequireAuth from "./components/RequireAuth";
 import PersistLogin from "./components/PersistLogin";
 import Unauthorized from "./components/Unauthorized";

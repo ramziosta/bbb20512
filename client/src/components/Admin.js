@@ -1,7 +1,8 @@
-import  {useState, useEffect } from 'react';
+import  {useState, useEffect, useContext } from 'react';
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "../api/axios";
+import DataContext from "../context/DataProvider";
+import UserContext from "../context/UserProvider";
 import Card from "../context/context";
 import "../styles/alldata.css";
 import SiteSideBar from "../components/siteSideBar";
@@ -9,7 +10,10 @@ import SiteSideBar from "../components/siteSideBar";
 const DATA_URL = "/users";
 
 export default function Admin() {
+
   const axiosPrivate = useAxiosPrivate();
+  const {accountData, setAccountData} = useContext(DataContext);
+    const {userData, setUserData} = useContext(UserContext);
 
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();

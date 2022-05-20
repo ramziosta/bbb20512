@@ -3,6 +3,8 @@ import AuthContext from "../context/AuthProvider";
 import React from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import DataContext from "../context/DataProvider";
+import UserContext from "../context/UserProvider";
 import useLogout from "../hooks/useLogout";
 import "../styles/navbar.css";
 
@@ -75,7 +77,8 @@ const menuItems = [
 ];
 
 function NavBar() {
-
+  const { accountData, setAccountData } = useContext(DataContext);
+  const { userData, setUserData } = useContext(UserContext);
   const { setAuth } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -90,7 +93,7 @@ function NavBar() {
     <>
       <nav
         className="navbar navbar-expand-lg navbar-dark bg-dark"
-        style={{ marginBottom: "1rem" , padding:"1rem"}}
+        style={{ marginBottom: "1rem", padding: "1rem" }}
       >
         <div className="container-fluid ms-5">
           <NavLink to="/" className="navbar-brand fs-1 fw-bold logo">
@@ -119,17 +122,17 @@ function NavBar() {
                 //   placement="bottom"
                 //   overlay={<Tooltip>{item.description}</Tooltip>}
                 // >
-                  <NavLink
-                    key={index}
-                    to={item.path}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "nav-link fs-6 mx-3 active"
-                        : "nav-link fs-6 mx-3"
-                    }
-                  >
-                    {item.name}
-                  </NavLink>
+                <NavLink
+                  key={index}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "nav-link fs-6 mx-3 active"
+                      : "nav-link fs-6 mx-3"
+                  }
+                >
+                  {item.name}
+                </NavLink>
                 // </OverlayTrigger>
               ))}
             </div>

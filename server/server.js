@@ -36,6 +36,7 @@ app.use("/transactions", require("./routes/api/transaction"));
 app.use("/employees", require("./routes/api/employees"));
 app.use("/acctransactions", require("./routes/acctransactions"));
 app.use("/users", require("./routes/api/users"));
+app.use("/users/email", require("./routes/api/users"));
 
 app.all("*", (req, res) => {
   res.status(404);

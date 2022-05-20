@@ -1,12 +1,17 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import Card from "../context/context";
 import SiteSideBar from "../components/siteSideBar";
 import axios from "../api/axios";
+import DataContext from "../context/DataProvider";
+import UserContext from "../context/UserProvider";
 const ACCTRANSACTION_URL = "/acctransactions";
 
 const timeStamp = new Date().toLocaleDateString();
 
 function Deposit() {
+  const { accountData, setAccountData } = useContext(DataContext);
+  const { userData, setUserData } = useContext(UserContext);
+
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState("");
   const [email, setEmail] = useState("peter@gmail.com");

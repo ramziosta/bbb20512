@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
+import useUserData from "../hooks/useUserData";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Card from "../context/context";
 import axios from "../api/axios";
@@ -9,8 +10,8 @@ const LOGIN_URL = "/auth";
 
 const Login = () => {
   const { setAuth, persist, setPersist } = useAuth();
-
-  const navigate = useNavigate();
+  const { userData, setUserData } = useUserData(); 
+   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard";
 
@@ -44,14 +45,17 @@ const Login = () => {
           withCredentials: true,
         }
       );
+
       console.log(JSON.stringify(response?.data));
       //console.log(JSON.stringify(response));
+
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
-      setAuth({ user, email, pwd, balance, roles, accessToken });
-      setEmail("");
-      setPwd("");
+
+      setAuth({ email, pwd, roles, accessToken });
+      setEmail(email);
       navigate(from, { replace: true });
+      
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -77,7 +81,7 @@ const Login = () => {
   return (
     <>
       <main>
-        <div style={{ background: "grey", height: "89vh" }}>
+        <div style={{ background: "grey", height: "65vh" }}>
           <Card
             style={{
               maxWidth: "25rem",

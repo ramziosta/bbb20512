@@ -9,8 +9,8 @@ router.route('/')
     .get( usersController.getAllUsers)
     .delete(verifyRoles(ROLES_LIST.Admin), usersController.deleteUser);
 
-router.route('/:id')
-    .get(verifyRoles(ROLES_LIST.Admin), usersController.getUser);
+router.route('/:email')
+    .get( usersController.getUser);
 
 
 
