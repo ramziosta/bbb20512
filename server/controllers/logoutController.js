@@ -1,4 +1,4 @@
-const Client = require('../sketchfiles/client.model');
+const User = require('../model/client.model');
 
 const handleLogout = async (req, res) => {
     // On client, also delete the accessToken
@@ -8,7 +8,7 @@ const handleLogout = async (req, res) => {
     const refreshToken = cookies.jwt;
 
     // Is refreshToken in db?
-    const foundUser = await Client.findOne({ refreshToken }).exec();
+    const foundUser = await User.findOne({ refreshToken }).exec();
     if (!foundUser) {
         res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
         return res.sendStatus(204);

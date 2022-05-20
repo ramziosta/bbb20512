@@ -1,44 +1,25 @@
-import "../src/styles/index.scss";
-// import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.min.js";
 import React from "react";
 import ReactDOM from "react-dom";
-import { UserContext } from "./components/context.js";
-import "../src/styles/index.css";
+import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-//> setup userContext here to provide the information to the whole app
+import { AuthProvider } from "./context/AuthProvider";
+import { DataProvider } from "./context/DataProvider";
+import { UserProvider } from "./context/UserProvider";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-      <UserContext.Provider
-          value={{
-            users: [
-              {
-                user: "",
-                email: "",
-                pwd: "",
-                balance:null,
-                created:"",
-                transactionType: "",
-                transactionAmount: null,
-                transactionDate: null,
-              },
-            ],
-            transactions:[],
-            sessionActivity:[],
-            log: false,
-            login: false,
-            register: false,
-          }}
-        >
-    <App />
-    </UserContext.Provider>
+    <BrowserRouter>
+      <AuthProvider>
+        <UserProvider>
+          <DataProvider>
+            <Routes>
+              <Route path="/*" element={<App />} />
+            </Routes>
+          </DataProvider>
+        </UserProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

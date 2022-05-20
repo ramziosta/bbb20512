@@ -1,6 +1,9 @@
+import { useContext } from "react";
+import AuthContext from "../context/AuthProvider";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import useLogout from "../hooks/useLogout";
 import "../styles/navbar.css";
 
 const menuItems = [
@@ -34,14 +37,60 @@ const menuItems = [
     path: "alldata",
     description: "User Account Information",
   },
+  {
+    name: "Login",
+    path: "/login",
+    description: "Login Page",
+  },
+  // {
+  //   name: "Logout",
+  //   path: "logout",
+  //   description: "Logout Page",
+  // },
+  {
+    name: "Directory",
+    path: "directory",
+    description: "Directory Page ",
+  },
+  // {
+  //   name: "Log Out",
+  //   path: "unauthorized",
+  //   description: "Log Out",
+  // },
+  // {
+  //   name: "Editor",
+  //   path: "editor",
+  //   description: "Editors Page",
+  // },
+  // {
+  //   name: "Admin",
+  //   path: "admin",
+  //   description: "Admin Page",
+  // },
+  // {
+  //   name: "Lounge",
+  //   path: "lounge",
+  //   description: "Lounge Page",
+  // }
 ];
 
 function NavBar() {
+
+  const { setAuth } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const logout = useLogout();
+
+  const signOut = async () => {
+    await logout();
+    navigate("/login");
+  };
+
   return (
     <>
       <nav
         className="navbar navbar-expand-lg navbar-dark bg-dark"
-        style={{ marginBottom: "1rem" }}
+        style={{ marginBottom: "1rem" , padding:"1rem"}}
       >
         <div className="container-fluid ms-5">
           <NavLink to="/" className="navbar-brand fs-1 fw-bold logo">
@@ -65,11 +114,11 @@ function NavBar() {
           >
             <div className="navbar-nav nav-pills">
               {menuItems.map((item, index) => (
-                <OverlayTrigger
-                  key={index}
-                  placement="bottom"
-                  overlay={<Tooltip>{item.description}</Tooltip>}
-                >
+                // <OverlayTrigger
+                //   key={index}
+                //   placement="bottom"
+                //   overlay={<Tooltip>{item.description}</Tooltip>}
+                // >
                   <NavLink
                     key={index}
                     to={item.path}
@@ -81,9 +130,17 @@ function NavBar() {
                   >
                     {item.name}
                   </NavLink>
-                </OverlayTrigger>
+                // </OverlayTrigger>
               ))}
             </div>
+            <NavLink
+              to="/login"
+              onClick={signOut}
+              className="nav-link fs-6 mx-3"
+              style={{ color: "white" }}
+            >
+              Logout
+            </NavLink>
           </div>
         </div>
       </nav>

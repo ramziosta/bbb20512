@@ -10,6 +10,7 @@
     font-weight:bold;
 }
 .form-bg{
+  
     background:grey;
 }
 
@@ -20,9 +21,10 @@
 }
 
 section {
+    
     width: 100%;
     max-width: 420px;
-    min-height: 400px;
+    min-height: 800px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -31,6 +33,7 @@ section {
 }
 
 form {
+    
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

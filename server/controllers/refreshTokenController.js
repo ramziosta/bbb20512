@@ -1,42 +1,33 @@
-const clientDB = {
-  clients: require("../data/clients.json"),
-  setClients: function (data) {
-    this.clients = data;
-  },
-};
+const User = require('../model/client.model');
+const jwt = require('jsonwebtoken');
 
-const jwt = require("jsonwebtoken");
+const handleRefreshToken = async (req, res) => {
+    const cookies = req.cookies;
+    if (!cookies?.jwt) return res.sendStatus(401);
+    const refreshToken = cookies.jwt;
 
-const handleRefreshToken = (req, res) => {
-  const cookies = req.cookies;
-  if (!cookies?.jwt) return res.status(401);
-  console.log("🍪 " + cookies.jwt);
-  const refreshToken = cookies.jwt;
-
-  const foundClient = clientDB.clients.find(
-    (person) => person.refreshToken === refreshToken
-  );
-  if (!foundClient) return res.sendStatus(403); //Forbidden
-  console.log(foundClient);
-
-  //evaluate jwt token
-  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-    if (err || foundClient.email !== decoded.email) return res.sendStatus(403);
-    // verify roles
-    const roles = Object.values(foundClient.roles);
-    const accessToken = jwt.sign(
-      {
-        UserInfo: {
-          email: foundClient.email,
-          roles: roles,
-        },
-      },
-      process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "300s" }
+    const foundUser = await User.findOne({ refreshToken }).exec();
+    if (!foundUser) return res.sendStatus(403); //Forbidden 
+    // evaluate jwt 
+    jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET,
+        (err, decoded) => {
+            if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
+            const roles = Object.values(foundUser.roles);
+            const accessToken = jwt.sign(
+                {
+                    "UserInfo": {
+                        "username": decoded.username,
+                        "roles": roles
+                    }
+                },
+                process.env.ACCESS_TOKEN_SECRET,
+                { expiresIn: '10s' }
+            );
+            res.json({ roles, accessToken })
+        }
     );
-    res.json({ accessToken });
-    console.log(accessToken);
-  });
-};
+}
 
-module.exports = { handleRefreshToken };
+module.exports = { handleRefreshToken }

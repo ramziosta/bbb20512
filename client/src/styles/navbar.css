@@ -8,9 +8,9 @@
   .logo:hover,
   .nav-link:hover
   {
-    transition: all 0.3s ease-out;
-    border-bottom:8px solid #ed2424;
-    font-weight: bold;
+    /* transition: all 0.3s ease-out; */
+    border-bottom:2px solid #ed2424;
+    /* font-weight: bold; */
     border-radius:0px;
   }
   

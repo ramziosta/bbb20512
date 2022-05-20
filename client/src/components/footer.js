@@ -3,7 +3,7 @@ export default function Footer() {
   return (
     <>
     <div className="footer-gray footer">
-    <div className="footer-custom">
+   <div className="footer-custom">
       <div className="footer-lists">
         <div className="footer-list-wrap">
           <h6 className="ftr-hdr">Toll Free</h6>
@@ -126,7 +126,7 @@ export default function Footer() {
         </ul>
       </div>
  
-    </div>
+    </div> 
   
   </div>
 

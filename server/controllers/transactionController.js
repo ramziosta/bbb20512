@@ -1,46 +1,53 @@
-const clientDB = {
-  clients: require("../data/clients.json"),
-  setClients: function (data) {
-    this.clients = data;
-  },
-};
+const User = require("../model/client.model");
+const Transaction = require("../model/transaction.model");
 
-const jwt = require("jsonwebtoken");
+const handleNewTransaction = async (req, res) => {
+  const { amount, balance, transactionDate, transactionType, } = req.body;
 
-const transaction = async (req, res) => {
-  const cookies = req.cookies;
-  if (!cookies?.jwt) return res.status(401);
-  console.log("🍪 " + cookies.jwt);
-  const refreshToken = cookies.jwt;
-
-  const foundClient = clientDB.clients.find(
-    (person) => person.refreshToken === refreshToken
-  );
-  if (!foundClient) return res.sendStatus(403); //Forbidden
-  console.log(foundClient);
-  //transaction
   try {
-    const newTransaction = {
-      amount: amount,
-      balance: balance,
-      transactionType: transactionType,
-      transactionDate: transactionDate,
-    };
+    const newTransaction = await User.create({
+      transactions: [
+        {
+          amount: amount,
+          balance: balance,
+          transactionDate: transactionDate,
+          transactionType: transactionType,
+        },
+      ],
+    });
 
-    clientDB.setClients([...clientDB.clients, newTransaction]);
-    await fsPromises.writeFile(
-      path.join(__dirname, "..", "data", "clients.json"),
-      JSON.stringify(clientDB.clients)
-    );
     console.log(newTransaction);
     res
       .status(201)
-      .json({
-        success: ` ${newTransaction.amount} ${newTransaction.transactionType} transaction submitted!`,
-      });
+      .json({ success: `Your ${newTransaction.transactionType} successful!` });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { transaction };
+const getAllTransactions = async (req, res) => {
+  const transactions = await Transaction.find();
+  if (!transactions)
+    return res.status(204).json({ message: "No transactions found" });
+  res.json(transactions);
+};
+
+const getUserTransaction = async (req, res) => {
+  if (!req?.params?.email)
+    return res.status(400).json({ message: "User Email required" });
+  const userTransaction = await Transaction.findOne({
+    email: req.params.email,
+  }).exec();
+  if (!userTransaction) {
+    return res
+      .status(204)
+      .json({ message: `User Email ${req.params.email} not found` });
+  }
+  res.json(userTransaction);
+};
+
+module.exports = {
+  handleNewTransaction,
+  getAllTransactions,
+  getUserTransaction,
+};
