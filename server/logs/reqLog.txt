@@ -2529,3 +2529,8 @@
 20220520	16:23:32	d9acbf88-edd6-4843-9275-4414c5ee143c	GET	undefined	/transactions/peter@gmail.com
 20220520	16:23:55	aac0e738-ad3c-4542-a7da-b8a4c31add9f	GET	undefined	/transactions/peter@gmail.com
 20220520	16:25:15	17cc20d9-c046-4861-832a-99d826e23e1a	GET	undefined	/transactions/peter@gmail.com
+20220520	16:34:03	bcb8e108-0e04-4513-a8f8-c1aa86ac0fad	POST	undefined	/transactions
+20220520	16:34:09	555f0b9e-00f6-4b43-a481-ad66b8c68b46	POST	undefined	/transactions
+20220520	16:34:46	d0b26939-3bb4-4044-84f7-de68a102c331	POST	undefined	/transactions
+20220520	16:35:13	a733d131-756e-45f8-afcc-8225084d5506	POST	undefined	/transactions
+20220520	16:35:50	855c6392-64f0-4b06-97d8-b42b04b53ac4	GET	undefined	/transactions/peter@gmail.com
