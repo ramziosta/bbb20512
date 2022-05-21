@@ -8,13 +8,12 @@ import useUserData from "../hooks/useUserData";
 import Card from "../context/context";
 import "../styles/alldata.css";
 
-const TRANSACTION_URL = "/transactions";
+
 
 
 function DashBoard() {
-  const { auth, setAuth, persist, setPersist } = useAuth();
-  const { accountData, setAccountData } = useContext(DataContext);
-  const {email, setEmail, userData, setUserData } = useUserData();
+  const { auth } = useAuth();
+  const { userData, setUserData } = useUserData();
 
   const [transactions, setTransactions] = useState([]);
   const axiosPrivate = useAxiosPrivate();
@@ -27,7 +26,7 @@ function DashBoard() {
 
     const getTransactions = async () => {
       try {
-        const response = await axiosPrivate.get(TRANSACTION_URL, {
+        const response = await axiosPrivate.get(`/transactions/${auth.email}`, {
           signal: controller.signal,
         });
         console.log(response.data);
@@ -81,7 +80,7 @@ function DashBoard() {
       </tr>
     );
   });
-console.log("🤡 "+ userData);
+console.log("🤡 "+ JSON.stringify(userData));
   return (
     <>
       <SiteSideBar />

@@ -469,7 +469,7 @@ function CreateAccount() {
                   <br />
                   <h5 style={{ marginTop: "1rem" }}>Open New Account</h5>
                   <Link
-                    to="/logout"
+                    to="/createaccount"
                     className="btn btn-primary fs-2 Link "
                     style={{ borderRadius: "0px", marginTop: "1rem" }}
                   >

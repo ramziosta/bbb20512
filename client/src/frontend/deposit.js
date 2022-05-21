@@ -3,15 +3,15 @@ import Card from "../context/context";
 import SiteSideBar from "../components/siteSideBar";
 import axios from "../api/axios";
 import DataContext from "../context/DataProvider";
-import UserContext from "../context/UserProvider";
+import useUserData from "../hooks/useUserData";
 const ACCTRANSACTION_URL = "/transactions";
 
 const timeStamp = new Date().toLocaleDateString();
 
 function Deposit() {
   const { accountData, setAccountData } = useContext(DataContext);
-  const { userData, setUserData } = useContext(UserContext);
-
+  const { userData, setUserData } = useUserData();
+  
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState("");
   const [email, setEmail] = useState("peter@gmail.com");

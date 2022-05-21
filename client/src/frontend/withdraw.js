@@ -19,12 +19,13 @@ function Withdraw() {
   const [balance, setBalance] = useState(5555555);
   const [transactionType, setTransactionType] = useState("Withdraw");
   const [transactionDate, setTransactionDate] = useState(timeStamp);
+  const [accountType, setAccountType] = useState("");
   const [isDisabled, setIsdisabled] = useState(true);
   const [errMsg, setErrMsg] = useState("");
 
   function validate(field) {
     if (!Number(field)) {
-      alert("Input type not valid. Please enter a number");
+      alert("Input not valid. Please enter a number");
       clearForm();
       return false;
     }
@@ -40,7 +41,6 @@ function Withdraw() {
     }
     return true;
   }
-
   const prevBalance = useRef("");
 
   useEffect(() => {
@@ -51,8 +51,7 @@ function Withdraw() {
     console.log("💵 " + amount);
     if (!validate(amount, "amount")) return;
 
-    setBalance(Number(balance) + Number(amount));
-    setShow(false);
+    setBalance(Number(balance) - Number(amount));
 
     try {
       const response = await axios.post(
@@ -85,7 +84,14 @@ function Withdraw() {
         setErrMsg(alert("TransactionFailed Failed"));
       }
     }
+    clearForm();
   }
+  const handleModeSelect = (event) => {
+    let userSelection = event.target.value;
+    console.log(userSelection);
+    setAccountType(userSelection);
+  };
+
   function clearForm() {
     setAmount("");
     setIsdisabled(true);
@@ -122,7 +128,7 @@ function Withdraw() {
                     }}
                   />
                   <br />
-                  {/* <label htmlFor="confirm_pwd">Account Type: ▶️</label>
+                  <label htmlFor="confirm_pwd">Account Type: ▶️</label>
                       <select
                         onChange={(event) => handleModeSelect(event)}
                         name="mode"
@@ -137,7 +143,7 @@ function Withdraw() {
                         <option id="savings" value="Savings">
                           Savings
                         </option>
-                      </select>*/}
+                      </select>
                   <button
                     disabled={isDisabled ? true : false}
                     type="submit"
