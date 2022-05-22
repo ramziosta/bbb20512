@@ -1,24 +1,24 @@
 import { useRef, useEffect, useState, useContext } from "react";
 import Card from "../context/context";
 import SiteSideBar from "../components/siteSideBar";
-import axios from "../api/axios";
+import useAuth from '../hooks/useAuth'
 import DataContext from "../context/DataProvider";
 import useUserData from "../hooks/useUserData";
-const ACCTRANSACTION_URL = "/transactions";
+// const ACCTRANSACTION_URL = "/transactions";
 
 const timeStamp = new Date().toLocaleDateString();
 
 function Deposit() {
-  const { accountData, setAccountData } = useContext(DataContext);
-  const { userData, setUserData } = useUserData();
   
+  const { userData, setUserdata } = DataContext;
+  const { email, accessToken} = useAuth
+  const [balance, setBalance] = useState("");
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState("");
-  const [email, setEmail] = useState("peter@gmail.com");
   const [amount, setAmount] = useState("");
-  const [balance, setBalance] = useState("");
   const [transactionType, setTransactionType] = useState("Deposit");
   const [transactionDate, setTransactionDate] = useState(timeStamp);
+  const [accountType, setAccountType] = useState("")
   const [isDisabled, setIsdisabled] = useState(true);
   const [errMsg, setErrMsg] = useState("");
 
@@ -50,27 +50,25 @@ function Deposit() {
     setShow(false);
 
     try {
-      const response = await axios.post(
-        ACCTRANSACTION_URL,
-        JSON.stringify({
-          transactions: [
-            {
-              email: email,
-              amount: amount,
-              balance: balance,
-              transactionDate: transactionDate,
-              transactionType: transactionType,
-            },
-          ],
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log(response?.data);
-      console.log(response?.accessToken);
-      console.log(JSON.stringify(response));
+
+      const response = await fetch("http://localhost:4000/transactions", {
+      method: "POST",
+      headers: {
+        authorization: 'Bearer ' + accessToken,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        amount,
+        balance,
+        transactionType,
+        transactionDate,
+        accountType,
+      }),
+    });
+    const transactionData = await response.json();
+    console.log(transactionData);
+    
     } catch (err) {
       if (!err?.response) {
         setErrMsg(alert("No Server Response"));
@@ -81,6 +79,13 @@ function Deposit() {
       }
     }
   }
+
+  const handleModeSelect = (event) => {
+    let userSelection = event.target.value;
+    console.log(userSelection);
+    setAccountType(userSelection);
+  };
+  
   function clearForm() {
     setAmount("");
     setIsdisabled(true);
@@ -117,7 +122,7 @@ function Deposit() {
                     }}
                   />
                   <br />
-                  {/*<label htmlFor="confirm_pwd">Account Type: ▶️</label>
+                  <label htmlFor="confirm_pwd">Account Type: ▶️</label>
                       <select
                         onChange={(event) => handleModeSelect(event)}
                         name="mode"
@@ -132,7 +137,7 @@ function Deposit() {
                         <option id="savings" value="Savings">
                           Savings
                         </option>
-                      </select>*/}
+                      </select>
                   <button
                     disabled={isDisabled ? true : false}
                     type="submit"

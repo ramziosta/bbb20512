@@ -31,7 +31,7 @@ app.use("/auth", require("./routes/auth"));
 app.use("/refresh", require("./routes/refresh"));
 app.use("/logout", require("./routes/logout"));
 
-app.use(verifyJWT);
+//app.use(verifyJWT);
 app.use("/transactions", require("./routes/api/transaction"));
 app.use("/employees", require("./routes/api/employees"));
 app.use("/users/transactions", require("./routes/acctransactions"));

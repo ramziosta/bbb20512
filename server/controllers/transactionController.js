@@ -2,7 +2,7 @@ const User = require("../model/client.model");
 const Transaction = require("../model/transaction.model");
 
 const handleNewTransaction = async (req, res) => {
-  const { email, amount, balance, transactionDate, transactionType, } = req.body;
+  const { email, amount, balance, transactionDate, transactionType, accountType } = req.body;
 
   try {
     const newTransaction = await Transaction.create({
@@ -11,6 +11,7 @@ const handleNewTransaction = async (req, res) => {
           balance: balance,
           transactionDate: transactionDate,
           transactionType: transactionType,
+          accountType: accountType,
     });
 
     console.log(newTransaction);

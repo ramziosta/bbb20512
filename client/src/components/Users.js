@@ -1,11 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
-import DataContext from "../context/DataProvider";
-import UserContext from "../context/UserProvider";
+
 const Users = () => {
-    const {accountData, setAccountData} = useContext(DataContext);
-    const {userData, setUserData} = useContext(UserContext);
+
 
     const [users, setUsers] = useState();
     const axiosPrivate = useAxiosPrivate();

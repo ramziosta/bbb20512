@@ -15,7 +15,7 @@ function Withdraw() {
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState("");
   const [amount, setAmount] = useState("");
-  const [email, setEmail] = useState("peter@gmail.com");
+  const [email, setEmail] = useState("busty@gmail.com");
   const [balance, setBalance] = useState(5555555);
   const [transactionType, setTransactionType] = useState("Withdraw");
   const [transactionDate, setTransactionDate] = useState(timeStamp);
