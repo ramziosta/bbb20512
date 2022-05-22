@@ -1,21 +1,18 @@
 import { useRef, useEffect, useState, useContext } from "react";
 import Card from "../context/context";
 import SiteSideBar from "../components/siteSideBar";
-import useAuth from '../hooks/useAuth'
-import DataContext from "../context/DataProvider";
-import useUserData from "../hooks/useUserData";
-// const ACCTRANSACTION_URL = "/transactions";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+const ACCTRANSACTION_URL = "/transactions";
 
 const timeStamp = new Date().toLocaleDateString();
 
 function Deposit() {
-  
-  const { userData, setUserdata } = DataContext;
-  const { email, accessToken} = useAuth();
-  const [balance, setBalance] = useState("");
+  const axiosPrivate = useAxiosPrivate();
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState("");
+  const [email, setEmail] = useState("peter@gmail.com");
   const [amount, setAmount] = useState("");
+  const [balance, setBalance] = useState("");
   const [transactionType, setTransactionType] = useState("Deposit");
   const [transactionDate, setTransactionDate] = useState(timeStamp);
   const [accountType, setAccountType] = useState("")
@@ -43,31 +40,33 @@ function Deposit() {
   }, [balance]);
 
   async function handleDeposit(e) {
-
+  
     if (!validate(amount, "amount")) return;
 
     setBalance(Number(balance) + Number(amount));
     setShow(false);
 
     try {
+      const response = await axiosPrivate.post(
+        ACCTRANSACTION_URL,
+        JSON.stringify({
+          transactions: 
+            {
+              email: email,
+              amount: amount,
+              balance: balance,
+              transactionDate: transactionDate,
+              transactionType: transactionType,
+              accountType: accountType,
+            },
+          
+        }),
 
-
-      const response = await fetch("http://localhost:4000/transactions", {
-      method: "POST",
-      headers: {
-        authorization: 'Bearer ' + accessToken,
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        amount,
-        balance,
-        transactionType,
-        transactionDate,
-        accountType,
-      }),
-    });
-    const transactionData = await response.json();
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
 
     } catch (err) {
       if (!err?.response) {
@@ -82,6 +81,7 @@ function Deposit() {
 
   const handleModeSelect = (event) => {
     let userSelection = event.target.value;
+    console.log(userSelection);
     setAccountType(userSelection);
   };
   

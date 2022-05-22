@@ -38,6 +38,12 @@ app.use("/users/transactions", require("./routes/acctransactions"));
 app.use("/users", require("./routes/api/users"));
 app.use("/users/email", require("./routes/api/users"));
 
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join('build')));
+  app.get("*", (req,res) => {(path.join(__dirname, 'client', 'build', 'index.html'))});
+}
+
 app.all("*", (req, res) => {
   res.status(404);
   if (req.accepts("html")) {
@@ -51,9 +57,6 @@ app.all("*", (req, res) => {
 
 app.use(errorHandler);
 
-if (process.env.NODE_ENV = 'production') {
-  app.use("/", express.static('client/build'));
-}
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
