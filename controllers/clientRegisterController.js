@@ -24,7 +24,7 @@ const handleNewClient = async (req, res) => {
         transactions: [],
               });
 
-    console.log(newClient);
+
     res.status(201).json({ success: `New user ${newClient.user} created!` });
   } catch (err) {
     res.status(500).json({ message: err.message });

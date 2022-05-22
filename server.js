@@ -51,6 +51,9 @@ app.all("*", (req, res) => {
 
 app.use(errorHandler);
 
+if (process.env.NODE_ENV = 'production') {
+  app.use("/", express.static('client/build'));
+}
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

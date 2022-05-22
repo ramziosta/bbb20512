@@ -29,7 +29,7 @@ function DashBoard() {
         const response = await axiosPrivate.get(`/transactions/${auth.email}`, {
           signal: controller.signal,
         });
-        console.log(response.data);
+
         isMounted && setTransactions(response.data);
       } catch (err) {
         console.error(err);
@@ -54,9 +54,9 @@ function DashBoard() {
         const response = await axiosPrivate.get( `/users/${auth.email}`, {
           signal: controller.signal,
         });
-        console.log(response.data);
+
         isMounted && setUserData(response.data);
-        console.log(response.data)
+
       } catch (err) {
         console.error(err);
         // navigate("/login", { state: { from: location }, replace: true });
@@ -80,7 +80,6 @@ function DashBoard() {
       </tr>
     );
   });
-console.log("🤡 "+ JSON.stringify(userData));
   return (
     <>
       <SiteSideBar />

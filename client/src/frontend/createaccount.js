@@ -63,18 +63,14 @@ function CreateAccount() {
 
   useEffect(() => {
     setValidName(USER_REGEX.test(user));
-    console.log("👽" + user);
   }, [user]);
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
-    console.log("📨" + email);
   }, [email]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
-    console.log("🤔" + result);
-    console.log("🤫 " + pwd);
     setValidPwd(result);
 
     const match = pwd === matchPwd;
@@ -115,19 +111,14 @@ function CreateAccount() {
 
   
     setCreated(timeStamp);
-    //creates a random last 4 digit account number
     let accountNumber = Math.floor(Math.random() * 10000);
     setAccountNumber(accountNumber);
-    console.log("🏦 " + accountNumber);
-    // function transform(account){
-    //   accountNumber = account.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, "$1-$2-$3-$4");
-    //   return accountNumber;
-    // }
+
 
     //################# Firebase################
     try {
       const user = await createUserWithEmailAndPassword(auth, email, pwd);
-      console.log(user);
+
     } catch (error) {
       console.log(error.message);
     }
@@ -150,10 +141,6 @@ function CreateAccount() {
           withCredentials: true,
         }
       );
-      console.log(response?.data);
-      console.log(response?.accessToken);
-      console.log(JSON.stringify(response));
-      console.log("🏦 " + accountNumber);
       setSuccess(true);
       setShow(false);
     } catch (err) {
@@ -171,7 +158,6 @@ function CreateAccount() {
   }
   const handleModeSelect = (event) => {
     let userSelection = event.target.value;
-    console.log(userSelection);
     setAccountType(userSelection);
   };
 

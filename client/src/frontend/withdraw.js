@@ -48,7 +48,6 @@ function Withdraw() {
   }, [balance]);
 
   async function handleWithdraw(e) {
-    console.log("💵 " + amount);
     if (!validate(amount, "amount")) return;
 
     setBalance(Number(balance) - Number(amount));
@@ -72,9 +71,6 @@ function Withdraw() {
           withCredentials: true,
         }
       );
-      console.log(response?.data);
-      console.log(response?.accessToken);
-      console.log(JSON.stringify(response));
     } catch (err) {
       if (!err?.response) {
         setErrMsg(alert("No Server Response"));
@@ -88,7 +84,6 @@ function Withdraw() {
   }
   const handleModeSelect = (event) => {
     let userSelection = event.target.value;
-    console.log(userSelection);
     setAccountType(userSelection);
   };
 

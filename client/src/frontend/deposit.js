@@ -11,7 +11,7 @@ const timeStamp = new Date().toLocaleDateString();
 function Deposit() {
   
   const { userData, setUserdata } = DataContext;
-  const { email, accessToken} = useAuth
+  const { email, accessToken} = useAuth();
   const [balance, setBalance] = useState("");
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState("");
@@ -43,13 +43,14 @@ function Deposit() {
   }, [balance]);
 
   async function handleDeposit(e) {
-    console.log("💵 " + amount);
+
     if (!validate(amount, "amount")) return;
 
     setBalance(Number(balance) + Number(amount));
     setShow(false);
 
     try {
+
 
       const response = await fetch("http://localhost:4000/transactions", {
       method: "POST",
@@ -67,8 +68,7 @@ function Deposit() {
       }),
     });
     const transactionData = await response.json();
-    console.log(transactionData);
-    
+
     } catch (err) {
       if (!err?.response) {
         setErrMsg(alert("No Server Response"));
@@ -82,7 +82,6 @@ function Deposit() {
 
   const handleModeSelect = (event) => {
     let userSelection = event.target.value;
-    console.log(userSelection);
     setAccountType(userSelection);
   };
   
