@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const cors = require("cors");
-const corsOptions = require("./config/corsOptions");
 const { logger } = require("./middleware/logEvents");
 const errorHandler = require("./middleware/errorHandler");
 const verifyJWT = require("./middleware/verifyJWT");
@@ -17,12 +16,12 @@ connectDB();
 
 app.use(logger);
 app.use(credentials);
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/", express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, 'build')));
 
 // routes
 app.use("/", require("./routes/root"));
@@ -39,10 +38,10 @@ app.use("/users", require("./routes/api/users"));
 app.use("/users/email", require("./routes/api/users"));
 
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join('build')));
-  app.get("*", (req,res) => {(path.join(__dirname, 'client', 'build', 'index.html'))});
-}
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join('build')));
+//   app.get("*", (req,res) => {(path.join(__dirname, 'client', 'build', 'index.html'))});
+// }
 
 app.all("*", (req, res) => {
   res.status(404);
